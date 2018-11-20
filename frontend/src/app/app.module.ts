@@ -7,6 +7,10 @@ import { RegisterComponent } from './signing/register/register.component';
 import { LoginComponent } from './signing/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SearchListsComponent } from './search-lists/search-lists.component';
+import { ProductComponent } from './product/product.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
 
 @NgModule({
   declarations: [
@@ -14,7 +18,10 @@ import { SearchListsComponent } from './search-lists/search-lists.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    SearchListsComponent
+    SearchListsComponent,
+    ProductComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
