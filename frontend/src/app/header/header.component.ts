@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SigningService } from '../services/signing.service';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  searchKeyword: any;
+  constructor(
+    private signingService: SigningService
+  ) { }
 
   ngOnInit() {
   }
-
+  searchProducts() {
+    this.signingService.searchProducts(this.searchKeyword)
+      .subscribe(results => console.log(results), err => console.log('err => ', err));
+  }
 }
