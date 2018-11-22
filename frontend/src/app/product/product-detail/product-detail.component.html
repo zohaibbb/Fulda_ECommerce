@@ -5,16 +5,16 @@
           <div class="row">
 
               <div class="col-md-9">
-                  <div class="block-breadcrumb">
+                  <!-- <div class="block-breadcrumb">
                       <ul class="breadcrumb">
                           <li><a href="#">Home</a></li>
                           <li><a href="#">Shirts</a></li>
                           <li class="active">Lolo</li>
                       </ul>
-                  </div>
+                  </div> -->
 
                   <div class="header-for-light">
-                      <h1 class="wow fadeInRight animated" data-wow-duration="1s">Shirt <span>"LOLO"</span> </h1>
+                      <h1 class="wow fadeInRight animated" data-wow-duration="1s    ">{{ article?.name }}</h1>
 
                   </div>
 
@@ -22,47 +22,42 @@
                       <div class="row">
                           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                               <div class="product-image">
-                                  <img id="product-zoom"  src='../../assets/img/preview/product/small/product2.jpg' data-zoom-image="../../assets/img/preview/product/large/product2.jpg" alt="">
-                                  <div id="gal1">
-
+                                  <img id="product-zoom"  [src]="article?.image_path" data-zoom-image="article?.image_path" alt="">
+                                  <!-- <div id="gal1">
                                       <a href="../../assets/img/preview/product/large/product1.jpg" data-lightbox="product" data-title="Product name" data-image="../../assets/img/preview/product/small/product1.jpg" data-zoom-image="../../assets/img/preview/product/large/product1.jpg">
                                           <img id="img_01" src="../../assets/img/preview/product/thumb/product1.jpg" alt="">
                                       </a>
-
                                       <a href="../../assets/img/preview/product/large/product2.jpg" data-lightbox="product" data-title="Product name" data-image="../../assets/img/preview/product/small/product2.jpg" data-zoom-image="../../assets/img/preview/product/large/product2.jpg">
                                           <img id="img_01" src="../../assets/img/preview/product/thumb/product2.jpg"  alt="">
                                       </a>
-
                                       <a href="../../assets/img/preview/product/large/product3.jpg" data-lightbox="product" data-title="Product name"  data-image="../../assets/img/preview/product/small/product3.jpg" data-zoom-image="../../assets/img/preview/product/large/product3.jpg">
                                           <img id="img_01" src="../../assets/img/preview/product/thumb/product3.jpg" />
                                       </a>
-                                  </div>
+                                  </div> -->
                               </div>
 
                           </div>
                           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-
-
                               <div class="product-detail-section">
-                                  <h3>Shirt "Lolo"</h3>
+                                  <h3>{{article?.name}}</h3>
                                   <div class="product-rating">
                                       <div class="stars">
                                           <span class="star"></span><span class="star active"></span><span class="star active"></span><span class="star active"></span><span class="star active"></span>
                                       </div>
-                                      <a href="" class="review">150 Reviews</a> 
+                                      <a class="review"></a> 
                                   </div>
 
                                   <div class="product-information">
                                       <div class="clearfix"> 
-                                          <label class="pull-left">Brand:</label> <a href="#">MusaicDesign</a><br>
+                                          <label class="pull-left">Category:</label> <a>{{article?.category_id}}</a><br>
                                       </div>
                                       <div class="clearfix"> 
-                                          <label class="pull-left">Collection:</label> Effect collection
+                                          <label class="pull-left">Quality:</label> {{article?.condition}}
                                       </div>
                                       <div class="clearfix"> 
-                                          <label class="pull-left">Product Code:</label> ID 175482451
+                                          <label class="pull-left">Seller Name:</label> {{ article?.seller_id }}
                                       </div>
-                                      <div class="clearfix">
+                                      <!-- <div class="clearfix">
                                           <label class="pull-left">Size:</label>
                                           <select name="size" class="form-control">
                                               <option value="" selected="selected">...</option>
@@ -70,27 +65,29 @@
                                               <option value="2">XL</option>
                                               <option value="3">XLL</option>
                                           </select>
-                                      </div>
-                                      <div class="clearfix">
+                                      </div> -->
+                                      <!-- <div class="clearfix">
                                           <label class="pull-left">Availability:</label>
                                           <p>150 in stock</p>
-                                      </div>
+                                      </div> -->
                                       <div class="clearfix">
                                           <label class="pull-left">Description:</label>
-                                          <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                                          <p class="description">{{article?.description}}</p>
                                       </div>
                                       <div class="clearfix">
                                           <label class="pull-left">Price:</label>
-                                          <p class="product-price"><span>$469.99</span> $450.99</p>
+                                          <p class="product-price">
+                                              <!-- <span>$469.99</span>  -->
+                                              {{article?.price}}</p>
                                       </div>
-                                      <div class="clearfix">
+                                      <!-- <div class="clearfix">
                                           <label class="pull-left">Quantity:</label>
                                           <input type="number" class="form-control">
-                                      </div>
-                                      <div class="clearfix">
+                                      </div> -->
+                                      <!-- <div class="clearfix">
                                           <label class="pull-left">Total:</label>
                                           <p class="product-price">$850</p>
-                                      </div>
+                                      </div> -->
                                       <div class="shopping-cart-buttons">
 
                                           <a href="#" class="shoping"><i class="fa fa-shopping-cart"></i>  Add to cart</a>
@@ -102,16 +99,17 @@
                           </div>
                       </div>
                   </div>
-                  <div class="box-border block-form">
-                      <!-- Nav tabs -->
+
+                  <!-- <div class="box-border block-form">
+                      
                       <ul class="nav nav-pills  nav-justified">
                           <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
                           <li><a href="#additional" data-toggle="tab" class="disabled">Additional</a></li>
                           <li><a href="#review" data-toggle="tab">Review</a></li>
                       </ul>
 
-                      <!-- Tab panes -->
-                      <div class="tab-content">
+                      
+                        <div class="tab-content">
                           <div class="tab-pane active" id="description">
                               <br>
                               <h3>Product Details</h3>
@@ -241,14 +239,10 @@
                           </div>
 
                       </div>
+                  </div> -->
 
 
-
-                  </div>
-
-
-
-              </div>
+              <!-- </div>
               <div class="col-md-3">
                   <div class="main-category-block ">
                       <div class="main-category-title">
@@ -404,7 +398,7 @@
                               <p class="description">Lorem ipsum dolor sit amet, con sec tetur adipisicing elit.</p>
                           </div>
                       </div>
-                  </div>
+                  </div> -->
 
               </div>
 
@@ -412,4 +406,4 @@
       </div>  
   </div>
 </section>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

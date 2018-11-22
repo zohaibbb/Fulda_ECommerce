@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="header-for-light">
-                        <h1 class="wow fadeInRight animated" data-wow-duration="1s">Short <span>dresses</span> </h1>
+                        <h1 class="wow fadeInRight animated" data-wow-duration="1s">Products</h1>
 
                     </div>
                     <div class="block-products-modes color-scheme-2">
@@ -58,20 +58,20 @@
 											<div class="row">
 													<div class="col-xs-12 col-sm-4 col-md-4 text-center">
 														<figure class="figure-hover-overlay text-center">                                                                        
-															<a [routerLink]="['/product-detail']" class="figure-href"></a>
+															<a (click)="productDetails(article._id)" class="figure-href"></a>
 															<div class="product-new">{{article.type}}</div>
 															<div class="product-sale" *ngIf="article.discount">{{article.discount}} <br> off</div>
-															<a [routerLink]="['/product-detail']" class="product-compare"><i class="fa fa-random"></i></a>
-															<a [routerLink]="['/product-detail']" class="product-wishlist"><i class="fa fa-heart-o"></i></a>
-															<img [src]="article.imageSource" class="img-overlay img-responsive" alt="">
-															<img [src]="article.imageSource" class="img-responsive" alt="">
+															<a (click)="productDetails(article._id)" class="product-compare"><i class="fa fa-random"></i></a>
+															<a (click)="productDetails(article._id)" class="product-wishlist"><i class="fa fa-heart-o"></i></a>
+															<img [src]="article.image_path" class="img-overlay img-responsive" alt="">
+															<img [src]="article.image_path" class="img-responsive" alt="">
 														</figure>
 													</div>
 													
 													<div class="col-xs-12 col-sm-8 col-md-8">
 															<div class="product-caption">
 																	<div class="block-name">
-																			<a [routerLink]="['/product-detail']" class="product-name">{{article.name}}</a>
+																			<a (click)="productDetails(article._id)" class="product-name">{{article.name}}</a>
 																			<p class="product-price"><span>{{article.price.original}}</span> {{article.price.discounted}}</p>
 																	</div>
 
@@ -90,7 +90,7 @@
 											</div>
 										</article>
                     
-                    <div class="block-pagination">
+                    <!-- <div class="block-pagination">
                         <ul class="pagination">
                             <li><a href="#">&laquo;</a></li>
                             <li><a href="#">1</a></li>
@@ -99,10 +99,10 @@
                             <li><a href="#">4</a></li>
                             <li><a href="#">&raquo;</a></li>
                         </ul>
-                    </div>  
+                    </div>   -->
 
                 </div>
-                <aside class="col-md-3">
+                <!-- <aside class="col-md-3">
                     <div class="main-category-block ">
                         <div class="main-category-title">
                             <i class="fa fa-list"></i> Category
@@ -259,11 +259,11 @@
                         </div>
                     </div>
 
-                </aside>
+                </aside> -->
 
             </div>
         </div>  
     </div>
 
 </section>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

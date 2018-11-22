@@ -17,6 +17,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
   searchProducts() {
-    this.router.navigate(['product-listing', {name: this.searchKeyword}]);
+    let params;
+    if (!this.searchKeyword) {
+      params = {};
+    }
+    else {
+      params = {name: this.searchKeyword}
+    }
+    this.router.navigate(['product-listing', params]);
   }
 }

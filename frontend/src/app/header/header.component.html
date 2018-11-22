@@ -67,13 +67,13 @@
                   <div id="container-fixed">
                       <div class="row">
                           <div class="col-md-3">
-                              <a [routerLink]="['/']" class="header-logo"> <img src="../../assets/img/logo-big-shop.png" alt=""></a>        
+                              <a href="#" class="header-logo"> <img src="../../assets/img/logo-big-shop.png" alt=""></a>        
                           </div>
                           <div class="col-md-5">
                               <div class="top-search-form pull-left">
                                   <form>
                                       <input type="text" [(ngModel)]="searchKeyword" name="searchKeyword" placeholder="Search ..." class="form-control">
-                                      <button type="button" [disabled]="!searchKeyword" (click)="searchProducts()"><i class="fa fa-search"></i></button>
+                                      <button type="button" (click)="searchProducts()"><i class="fa fa-search"></i></button>
                                   </form>  
                               </div>        
                           </div>
