@@ -2,6 +2,10 @@ exports.sendCreated = function(res, data) {
   return res.status(201).send(data);
 };
 
+exports.send = (res, data) => {
+  return res.status(200).send(data);
+};
+
 exports.sendBadRequest = function(res, message) {
   return res.status(400).send({
     success: false,

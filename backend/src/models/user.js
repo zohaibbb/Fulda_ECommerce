@@ -15,13 +15,8 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum : ['user', 'admin'],
-    default: 'user'
-  },
-  items : [{
-    type: Schema.Types.ObjectId,
-    ref: 'Item'
-  }]
+    enum : ['buyer', 'seller', 'admin']
+  }
 });
 
 UserSchema.set('toJSON', {

@@ -1,22 +1,22 @@
 import express from 'express';
-
-import auth from './auth';
+import path from 'path';
 import users from './users';
+import products from './products';
 import response from '../helpers/response';
-
 const routes  = express.Router();
-
 routes.use(response.setHeadersForCORS);
 
-routes.use('/', auth);
-routes.use('/users', users);
-
-routes.get('/', (req, res) => {
+routes.use('/api/users', users);
+routes.use('/api/products', products);
+routes.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'Ok' });
 });
 
-routes.use(function(req, res) {
-  response.sendNotFound(res);
+// angular routing
+routes.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+
+routes.use((req, res) => response.sendNotFound(res));
 
 module.exports = routes;

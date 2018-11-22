@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "set NODE_ENV=dev&& set NODE_CONFIG_DIR=./src/config/&& nodemon -w src --exec \"babel-node src/app.js --presets es2015,stage-0\"",
-    "test": "set NODE_ENV=test&& set NODE_CONFIG_DIR=./src/config/&& mocha --timeout 10000 --compilers js:babel-core/register ./src/test/*.js ",
     "populatedb": "babel-node --presets es2015 ./node_modules/pow-mongodb-fixtures/bin/mongofixtures node-express-skeleton-dev ./src/test/fixtures"
   },
+  "engines": { 
+    "node": "8.9.4" 
+ },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CSC-648-SFSU/csc648-fa18-TeamFd03"
@@ -18,14 +20,14 @@
     "Node.js",
     "wordlist"
   ],
-  "author": "Muhammad Saeed",
+  "author": "Group 3 GSD",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CSC-648-SFSU/csc648-fa18-TeamFd03"
   },
   "homepage": "https://github.com/CSC-648-SFSU/csc648-fa18-TeamFd03#readme",
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": "1.0.2",
     "body-parser": "^1.17.2",
     "config": "^1.26.2",
     "cross-env": "^5.2.0",
