@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { SigningService } from '../../services/signing.service';
 
 @Component({
   selector: 'app-product-list',
@@ -7,47 +9,21 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  articles = [{
-    type: 'new',
-    discount: '7%',
-    imageSource: 'http://placehold.it/400x500',
-    name: 'Product name',
-    price: {
-      original: '$330',
-      discounted: '$320.99'
-    },
-    reviews: 8,
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  },
-  {
-    type: 'new',
-    discount: '7%',
-    imageSource: 'http://placehold.it/400x500',
-    name: 'Product name',
-    price: {
-      original: '$330',
-      discounted: '$320.99'
-    },
-    reviews: 8,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  },
-  {
-    type: 'new',
-    discount: '11%',
-    imageSource: 'http://placehold.it/400x500',
-    name: 'Product name',
-    price: {
-      original: '$330',
-      discounted: '$320.99'
-    },
-    reviews: 8,
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-  }
-];
-  constructor(private title: Title) { }
+  articles;
+  constructor(
+    private title: Title,
+    private signingService: SigningService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
     this.title.setTitle('Products List - Fulda Buy & Sell');
+    const searchKeyword = this.route.snapshot.params.name;
+    this.signingService.searchProducts({name: searchKeyword})
+      .subscribe(results => {
+        if (Array.isArray(results.body) && results.body.length > 0) {
+          this.articles = results.body;
+        }
+      }, err => console.log('err => ', err));
   }
-
 }

@@ -10,13 +10,7 @@ export class SigningService {
   constructor(private http: HttpClient) {}
   searchProducts(keyword?: any) {
     const url = environment.apiEndPoint + '/api/products';
-    return this.http.get(url, {
-      params: {
-        search: keyword
-      },
-      observe: 'response'
-    });
-    // return this.http.get(url);
-    // return this.http.get('/products/' + keyword).map((response: Response) => response.json());
+    const params = keyword.name ? keyword : {};
+    return this.http.get(url, { params, observe: 'response' });
   }
 }

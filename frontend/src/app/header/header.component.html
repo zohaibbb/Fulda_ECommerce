@@ -73,7 +73,7 @@
                               <div class="top-search-form pull-left">
                                   <form>
                                       <input type="text" [(ngModel)]="searchKeyword" name="searchKeyword" placeholder="Search ..." class="form-control">
-                                      <button type="button" (click)="searchProducts()"><i class="fa fa-search"></i></button>
+                                      <button type="button" [disabled]="!searchKeyword" (click)="searchProducts()"><i class="fa fa-search"></i></button>
                                   </form>  
                               </div>        
                           </div>

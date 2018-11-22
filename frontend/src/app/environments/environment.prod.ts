@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndPoint: 'https://localhost:3000'
+  apiEndPoint: 'https://fulda-buyandsell.herokuapp.com'
 }

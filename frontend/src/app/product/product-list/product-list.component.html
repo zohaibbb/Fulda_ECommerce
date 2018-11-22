@@ -52,7 +52,8 @@
                                 </div>
                             </div>
                         </div>
-										</div>
+                                        </div>
+                                        <h1 *ngIf="!articles?.length">No search results</h1>
 										<article *ngFor="let article of articles" class="product list">
 											<div class="row">
 													<div class="col-xs-12 col-sm-4 col-md-4 text-center">

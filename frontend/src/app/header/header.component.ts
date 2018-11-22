@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SigningService } from '../services/signing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +10,13 @@ import { SigningService } from '../services/signing.service';
 export class HeaderComponent implements OnInit {
   searchKeyword: any;
   constructor(
-    private signingService: SigningService
+    private signingService: SigningService,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
   searchProducts() {
-    this.signingService.searchProducts(this.searchKeyword)
-      .subscribe(results => console.log(results), err => console.log('err => ', err));
+    this.router.navigate(['product-listing', {name: this.searchKeyword}]);
   }
 }
