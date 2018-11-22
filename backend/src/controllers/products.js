@@ -19,16 +19,14 @@ exports.list = async (req, res) => {
   res.send(product);
 };
 
-exports.read = function(req, res) {
-  Product.findById(req.params.id, function(err, Product) {
-   if (err) return res.send(err);
+exports.read = async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) return res.send(err);
    //if (!req.currentProduct.canRead(Product)) return response.sendForbidden(res);
   //   res.json(Product);
   // });
-	
-	  res.send(product);
-		console.log(product);
-	});
+  console.log(product);
+  res.send(product);
 };
 
 exports.search =  async (req, res) => {
