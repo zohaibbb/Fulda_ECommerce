@@ -10,8 +10,10 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { ProductCreateComponent } from './product/product-create/product-create.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,15 @@ import {HttpClientModule} from '@angular/common/http';
     ProductListComponent,
     HeaderComponent,
     FooterComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductCreateComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
   providers: [],

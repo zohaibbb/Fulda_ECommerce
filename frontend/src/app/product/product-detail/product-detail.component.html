@@ -1,29 +1,29 @@
 <app-header></app-header>
 <section>
-  <div class="second-page-container">
-      <div class="container">
-          <div class="row">
+	<div class="second-page-container">
+		<div class="container">
+			<div class="row">
 
-              <div class="col-md-9">
-                  <!-- <div class="block-breadcrumb">
+				<div class="col-md-9">
+					<!-- <div class="block-breadcrumb">
                       <ul class="breadcrumb">
                           <li><a href="#">Home</a></li>
                           <li><a href="#">Shirts</a></li>
                           <li class="active">Lolo</li>
                       </ul>
                   </div> -->
+					<br><br>
+					<div class="header-for-light">
+						<h1 class="wow fadeInRight animated" data-wow-duration="1s    ">{{ article?.name }}</h1>
 
-                  <div class="header-for-light">
-                      <h1 class="wow fadeInRight animated" data-wow-duration="1s    ">{{ article?.name }}</h1>
-
-                  </div>
-
-                  <div class="block-product-detail">
-                      <div class="row">
-                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                              <div class="product-image">
-                                  <img id="product-zoom"  [src]="article?.image_path" data-zoom-image="article?.image_path" alt="">
-                                  <!-- <div id="gal1">
+					</div>
+					
+					<div class="block-product-detail">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<div class="product-image">
+									<img id="product-zoom" [src]="article?.image_path" data-zoom-image="article?.image_path" alt="">
+									<!-- <div id="gal1">
                                       <a href="../../assets/img/preview/product/large/product1.jpg" data-lightbox="product" data-title="Product name" data-image="../../assets/img/preview/product/small/product1.jpg" data-zoom-image="../../assets/img/preview/product/large/product1.jpg">
                                           <img id="img_01" src="../../assets/img/preview/product/thumb/product1.jpg" alt="">
                                       </a>
@@ -34,30 +34,31 @@
                                           <img id="img_01" src="../../assets/img/preview/product/thumb/product3.jpg" />
                                       </a>
                                   </div> -->
-                              </div>
+								</div>
 
-                          </div>
-                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                              <div class="product-detail-section">
-                                  <h3>{{article?.name}}</h3>
-                                  <div class="product-rating">
-                                      <div class="stars">
-                                          <span class="star"></span><span class="star active"></span><span class="star active"></span><span class="star active"></span><span class="star active"></span>
-                                      </div>
-                                      <a class="review"></a> 
-                                  </div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<div class="product-detail-section">
+									<h3>{{article?.name}}</h3>
+									<div class="product-rating">
+										<div class="stars">
+											<span class="star"></span><span class="star active"></span><span class="star active"></span><span class="star active"></span><span
+											 class="star active"></span>
+										</div>
+										<a class="review"></a>
+									</div>
 
-                                  <div class="product-information">
-                                      <div class="clearfix"> 
-                                          <label class="pull-left">Category:</label> <a>{{article?.category_id}}</a><br>
-                                      </div>
-                                      <div class="clearfix"> 
-                                          <label class="pull-left">Quality:</label> {{article?.condition}}
-                                      </div>
-                                      <div class="clearfix"> 
-                                          <label class="pull-left">Seller Name:</label> {{ article?.seller_id }}
-                                      </div>
-                                      <!-- <div class="clearfix">
+									<div class="product-information">
+										<div class="clearfix">
+											<label class="pull-left">Category:</label> <a>{{article?.category_id}}</a><br>
+										</div>
+										<div class="clearfix">
+											<label class="pull-left">Quality:</label> {{article?.condition}}
+										</div>
+										<div class="clearfix">
+											<label class="pull-left">Seller Name:</label> {{ article?.seller_id }}
+										</div>
+										<!-- <div class="clearfix">
                                           <label class="pull-left">Size:</label>
                                           <select name="size" class="form-control">
                                               <option value="" selected="selected">...</option>
@@ -66,41 +67,47 @@
                                               <option value="3">XLL</option>
                                           </select>
                                       </div> -->
-                                      <!-- <div class="clearfix">
+										<!-- <div class="clearfix">
                                           <label class="pull-left">Availability:</label>
                                           <p>150 in stock</p>
                                       </div> -->
-                                      <div class="clearfix">
-                                          <label class="pull-left">Description:</label>
-                                          <p class="description">{{article?.description}}</p>
-                                      </div>
-                                      <div class="clearfix">
-                                          <label class="pull-left">Price:</label>
-                                          <p class="product-price">
-                                              <!-- <span>$469.99</span>  -->
-                                              {{article?.price}}</p>
-                                      </div>
-                                      <!-- <div class="clearfix">
+										<div class="clearfix">
+											<label class="pull-left">Description:</label>
+											<p class="description">{{article?.description}}</p>
+										</div>
+										<div class="clearfix">
+											<label class="pull-left">Price:</label>
+											<p class="product-price">
+												<!-- <span>$469.99</span>  -->
+												€ {{article?.price}}</p>
+										</div>
+										<!-- <div class="clearfix">
                                           <label class="pull-left">Quantity:</label>
                                           <input type="number" class="form-control">
                                       </div> -->
-                                      <!-- <div class="clearfix">
+										<!-- <div class="clearfix">
                                           <label class="pull-left">Total:</label>
                                           <p class="product-price">$850</p>
                                       </div> -->
-                                      <div class="shopping-cart-buttons">
+										<div class="shopping-cart-buttons">
 
-                                          <a href="#" class="shoping"><i class="fa fa-shopping-cart"></i>  Add to cart</a>
-                                          <a href="#" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                          <a href="#" title="Compare"><i class="fa fa-random"></i></a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+											<a *ngIf="!existInWishlist" (click)="addToWishlist()" class="shoping" style="cursor:pointer;width:190px"><i class="fa fa-shopping-cart"></i>
+												Add to Wish List
+											</a>
+											<a *ngIf="existInWishlist" (click)="addToWishlist()" class="shoping" style="width:300px">
+												Product Added in Wish List
+											</a>
 
-                  <!-- <div class="box-border block-form">
+											<!-- <a href="#" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                          <a href="#" title="Compare"><i class="fa fa-random"></i></a> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="box-border block-form">
                       
                       <ul class="nav nav-pills  nav-justified">
                           <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
@@ -242,7 +249,7 @@
                   </div> -->
 
 
-              <!-- </div>
+					<!-- </div>
               <div class="col-md-3">
                   <div class="main-category-block ">
                       <div class="main-category-title">
@@ -400,10 +407,10 @@
                       </div>
                   </div> -->
 
-              </div>
+				</div>
 
-          </div>
-      </div>  
-  </div>
+			</div>
+		</div>
+	</div>
 </section>
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>
