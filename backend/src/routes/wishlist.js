@@ -1,41 +1,22 @@
-var express = require('express');
-var routes = express.Router();
-
+import express from 'express';
 import wishlist from '../controllers/wishlist';
+const routes = express.Router();
 
-routes.post('/addToWishList', function(req, res, next) {
-		
-	
-        var newWishlist = new WishList(); 
-		
-		newWishlist.buyer_id=req.body.buyer;
-		newWishlist.seller_id=req.body.seller;
-		newWishlist.product_id=req.body.product;
-		newWishlist.order_id=req.body.order;
-	
+routes.route('/exist')
+	.post(wishlist.exist);	
 
-        newWishlist.save(function(err) {
-			if(err){
-				console.log("Error : While adding product to wishList");
-				return res.status(500).send(err);
-			}else{
-				res.redirect("/wishList");
-			}
-		
-        });
-        
-});
+routes.route('/')
+	// .get(wishlist.list)
+	.post(wishlist.create)
+	// .put(wishlist.update);
 
-routes.get('/wishList', function(req, res, next) {
-       
-	   WishList.find(function(err, WishList){
-            if(err){
-				console.log("Error : While retreiving wishList");
-				return res.status(500).send(err);
-			}else{
-				return res.json(WishList);
-			}
-        });
-});
+routes.route('/remove-product')
+	.post(wishlist.removeProduct);
+
+
+routes.route('/:id')
+	.get(wishlist.list)
+	// .delete(checkout.delete);
+
 
 module.exports = routes;

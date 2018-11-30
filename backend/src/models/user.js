@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     type: String,
     enum : ['buyer', 'seller', 'admin']
   }
-});
+}, {versionKey: false});
 
 UserSchema.set('toJSON', {
   transform: function(doc, ret, options) {

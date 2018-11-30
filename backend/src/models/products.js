@@ -13,7 +13,7 @@ var productSchema = new Schema({
   price: Number,
   imagePath:String,
   category_id:String
-});
+}, {versionKey: false});
 
 productSchema.plugin(mongoosePaginate);
 

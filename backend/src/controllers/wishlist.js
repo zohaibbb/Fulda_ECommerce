@@ -3,78 +3,84 @@ import response from '../helpers/response';
 import request from '../helpers/request';
 import pagination from '../helpers/pagination';
 
-const Wishlist = mongoose.model('Wishlist');
+import Wishlist from '../models/wishlist';
+import Product from '../models/products';
 
+
+exports.removeProduct = async (req, res) => {
+	try {
+    let product = await Wishlist.findOneAndRemove(req.body);
+
+    if (!product) {
+      return res.status(404).send(new Error('Not Found Error', ['Product not found ']));
+    } else {
+			console.log('Product deleted');
+      res.status(204).send({status: true});
+    }
+  } catch (err) {
+    return res.status(500).send(new Error('Unknown server error', ['Unknown server error when trying to delete product']));
+  }
+	
+}
+
+
+/*Retrieving items that are in wishlist */
 exports.list = async (req, res) => {
-  const wishlist = await Wishlist.find();
-  response.send(wishlist);
-	console.log(wishlist);
-};
-
-exports.read = function(req, res) {
-	const wishlist = await Wishlist.findById(req.params.id);
-  response.send(wishlist);
-	console.log(wishlist);
-	
-  // Wishlist.findById(req.params.id, function(err, user) {
-  //   if (err) return response.sendNotFound(res);
-  //   if (!req.currentWishlist.canRead(user)) return response.sendForbidden(res);
-  //   res.json(user);
-  // });
-};
-
-exports.create = function(req, res) {
-	var newWishlist = new Wishlist(); 
-		
-	newWishlist.buyer_id=req.body.buyer;
-	newWishlist.seller_id=req.body.seller;
-	newWishlist.product_id=req.body.product;
-	newWishlist.order_id=req.body.order;
-	
-
-  newWishlist.save(function(err) {
-		if(err){
-			console.log("Error : While adding product to wishList");
-			return res.status(500).send(err);
-		}else{
-			res.redirect("/wishList");
+	try {
+		console.log('hello');
+		const where = { buyer_id: req.params.id };
+		let wishlist = JSON.parse(JSON.stringify(await Wishlist.find(where)));
+		if (!wishlist)
+			return res.status(404).send(new Error('Not Found Error', ['Wishlist not found ']));
+		else {
+			for (let i=0;i<wishlist.length;i++) {
+				wishlist[i]['product_details'] = await Product.findById(wishlist[i]['product_id']); 
+			}
 		}
+			console.log(wishlist);
+			res.send(wishlist);
+
+	} catch (err) {
+		console.log("Error : While retrieving wishlist");
+		return res.status(500).send(new Error('Unknown server error', ['Unknown server error when trying to retrieve wishlist']));
+
+	}
+};
+
+/*Add product to wishlist*/
+
+exports.create = async (req, res) => {
+	try {
+		const wishlist = await Wishlist.create(req.body);
+		if (!wishlist)
+			return res.send(err);
 		
-	});
-	
-	
-	
-  // const newWishlist = new Wishlist(req.body);
-  // newWishlist.role = 'user';
-  // newWishlist.save(function(err, user) {
-  //   if (err) return response.sendBadRequest(res, err);
-  //   response.sendCreated(res, user);
-  // });
+		res.send(wishlist);
+	} catch (err) {
+		console.log("Error : While retrieving wishlist");
+		return res.status(500).send(new Error('Unknown server error', ['Unknown server error when trying to add product to wishlist']));
+	}
 };
 
-exports.update = function(req, res) {
-  // const user = req.body;
-  // delete user.role;
-  // if (!req.currentWishlist.canEdit({ _id: req.params.id })) return response.sendForbidden(res);
-  // Wishlist.findOneAndUpdate({ _id: req.params.id }, user, { new: true, runValidators: true }, function(err, user) {
-  //   if (err) return response.sendBadRequest(res, err);
-  //   res.json(user);
-  // });
+exports.exist = async (req, res) => {
+	const exist = await Wishlist.count(req.body);
+	return res.send({count: exist});
+}
+/*Remove product from wishlist*/
+exports.delete = async (req, res) => {
+
+	try {
+		let wishlist = await Wishlist.findOneAndRemove({ _id: req.params.id });
+
+		if (!wishlist) {
+			return res.status(404).send(new Error('Not Found Error', ['Wishlist item not found ']));
+		} else {
+			console.log('Product removed from wishlist');
+			res.status(204).send('Product removed from wishlist');
+		}
+	} catch (err) {
+		return res.status(500).send(new Error('Unknown server error', ['Unknown server error when trying remove product from wishlist']));
+	}
+
 };
 
-exports.delete = function(req, res) {
-  // Wishlist.remove({ _id: req.params.id }, function(err, user) {
-  //   if (err) return res.send(err);
-  //   if (!req.currentWishlist.canEdit(user)) return response.sendForbidden(res);
-  //   res.json({ message: 'Wishlist successfully deleted' });
-  // });
-};
-
-exports.loadWishlist = function (req, res, next) {
-  // Wishlist.findById(req.params.userId, function (err, user) {
-  //   if (err) return response.sendNotFound(res);
-  //   if (!req.locals) req.locals = {};
-  //   req.locals.user = user;
-  //   next();
-  // });
-};

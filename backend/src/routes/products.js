@@ -3,6 +3,9 @@ var routes = express.Router();
 
 import product from '../controllers/products';
 
+routes.route('/get-categories')
+	.get(product.categories);
+
 routes.route('/')
 	.get(product.list)
   .put(product.update)
@@ -13,8 +16,5 @@ routes.route('/add-product')
 
 routes.route('/:id')
 	.get(product.read);
-	
-routes.route('/:name')
-	.get(product.search);
 	
 module.exports = routes;

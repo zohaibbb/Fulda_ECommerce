@@ -5,11 +5,11 @@ import mongoosePaginate from 'mongoose-paginate';
 const Schema = mongoose.Schema;
 var wishListSchema = new Schema({
   buyer_id:String,
-  seller_id: {type: String},
-  product_id:{type:Date,default:Date.now},
+  seller_id: String,
+  product_id:String,
   order_id:String,
  
-});
+}, {versionKey: false});
 
 wishListSchema.plugin(mongoosePaginate);
 

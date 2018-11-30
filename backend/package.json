@@ -7,9 +7,9 @@
     "start": "set NODE_ENV=dev&& set NODE_CONFIG_DIR=./src/config/&& nodemon -w src --exec \"babel-node src/app.js --presets es2015,stage-0\"",
     "populatedb": "babel-node --presets es2015 ./node_modules/pow-mongodb-fixtures/bin/mongofixtures node-express-skeleton-dev ./src/test/fixtures"
   },
-  "engines": { 
-    "node": "8.9.4" 
- },
+  "engines": {
+    "node": "8.9.4"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CSC-648-SFSU/csc648-fa18-TeamFd03"

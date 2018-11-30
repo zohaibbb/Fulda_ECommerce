@@ -1,7 +1,5 @@
 import express from 'express';
-
 import users from '../controllers/users';
-
 const routes  = express.Router();
 
 routes.route('/:id')
