@@ -2,10 +2,9 @@ import mongoose from 'mongoose';
 import response from '../helpers/response';
 import request from '../helpers/request';
 import pagination from '../helpers/pagination';
-
 import Product from '../models/products';
 import ProductCategories from '../models/product_categories';
-
+import User from '../models/user';
 
 exports.categories = async (req, res) => {
 	const categories = await ProductCategories.find();
@@ -54,8 +53,15 @@ exports.read = async (req, res) => {
 		
 	}
 };
+exports.search =  async (req, res) => {
+	//Product.find({$or:[{category: req.params.name},{name:req.params.category}]}, function(err, user) 
+   const product = await Product.find({'name': req.params.name});
+   res.send(product);
+  // console.log(product);
+	 console.log('test');
+	 console.log(req.params.name);	
+}
 
-/*adds a new product*/
 exports.create = async (req, res) => {
   var newProduct = new Product(); 
 		
@@ -71,7 +77,6 @@ exports.create = async (req, res) => {
 
 	try{
 	  let product = await newProduct.save();
-		
 		if (!product) 
 			return res.send(err);
 		else{
