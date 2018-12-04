@@ -10,7 +10,7 @@ routes.use(response.setHeadersForCORS);
 routes.use('/api/users', users);
 routes.use('/api/products', products);
 routes.use('/api/wishlist', wishlist);
-routes.use('/api/userprofile', users);
+routes.use('/api/users/profile', users);
 routes.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'Ok' });
 });
