@@ -63,4 +63,11 @@ export class ProductDetailComponent implements OnInit {
         err => console.log(err)
       );
   }
+  contactSeller(id){
+    alert('Clicked');
+
+
+
+
+  }
 }

@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     FooterComponent,
     ProductDetailComponent,
     ProductCreateComponent,
-    WishlistComponent
+    WishlistComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

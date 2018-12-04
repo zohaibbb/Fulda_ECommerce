@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SigningService } from '../../services/signing.service';
+
 // import { AddProductService } from '../../services/add-product.service';
 // import {GetAllCategoriesService} from '../../services/get-all-categories.service';
 
@@ -37,6 +38,7 @@ export class ProductCreateComponent implements OnInit {
   get category_id() { return this.form.get('category_id'); }
 
   post() {
+   
     console.log(this.form);
     this.form.seller_id = 1; // will be made dynamic in future
     this.signingService.postProduct(this.form.value)

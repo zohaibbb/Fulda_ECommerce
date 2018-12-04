@@ -41,4 +41,12 @@ export class SigningService {
     const url = environment.apiUrl + '/api/wishlist/remove-product';
     return this.http.post(url, product);
   }
+  changePassword(userDetail){
+    const url = environment.apiUrl + '/api/users/change-password';
+    return this.http.post(url,userDetail);
+  }
+  contactSellerFromProductDetail(id){
+    const url = environment.apiUrl + '/api/users/profile';
+    return this.http.post(url,id);
+  }
 }
