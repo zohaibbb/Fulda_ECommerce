@@ -66,6 +66,12 @@ export class ProductDetailComponent implements OnInit {
   contactSeller(id){
     alert('Clicked');
 
+    //this.signingService.contactSellerFromProductDetail(id)
+    //.subscribe(result=>{
+
+
+    //});
+
 
 
 
