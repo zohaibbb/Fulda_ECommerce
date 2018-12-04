@@ -17,6 +17,11 @@ export class SigningService {
     const url = environment.apiUrl + '/api/products/' + id;
     return this.http.get(url);
   }
+
+  getProdcuts() {
+    const url = environment.apiUrl + '/api/products';
+    return this.http.get(url);
+  }
   getCategories() {
     const url = environment.apiUrl + '/api/products/get-categories';
     return this.http.get(url);
@@ -40,5 +45,13 @@ export class SigningService {
   removeProductFromWishlist(product) {
     const url = environment.apiUrl + '/api/wishlist/remove-product';
     return this.http.post(url, product);
+  }
+  registerUser(user) {
+    const url = environment.apiUrl + '/api/users(post)';
+    return this.http.post(url, user);
+  }
+  loginUser(user) {
+    const url = environment.apiUrl + '/api/users/login(post)';
+    return this.http.post(url, user);
   }
 }

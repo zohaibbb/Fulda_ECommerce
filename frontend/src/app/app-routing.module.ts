@@ -7,6 +7,8 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +18,7 @@ const routes: Routes = [
   { path: 'product-detail', component: ProductDetailComponent },
   { path: 'product-create', component: ProductCreateComponent },
   { path: 'wishlist', component: WishlistComponent },
+  { path: 'adminapproval', component: AdminapprovalComponent },
 ];
 
 @NgModule({
