@@ -63,4 +63,17 @@ export class ProductDetailComponent implements OnInit {
         err => console.log(err)
       );
   }
+  contactSeller(id){
+    alert('Clicked');
+
+    //this.signingService.contactSellerFromProductDetail(id)
+    //.subscribe(result=>{
+
+
+    //});
+
+
+
+
+  }
 }

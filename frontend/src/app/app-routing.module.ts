@@ -6,9 +6,9 @@ import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
-import { WishlistComponent } from './wishlist/wishlist.component';
+import { WishlistComponent } from './wishlist/wishlist.component'
 import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
-
+import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'product-create', component: ProductCreateComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: 'adminapproval', component: AdminapprovalComponent },
+  {path : 'forgot-password', component : ForgotPasswordComponent}
 ];
 
 @NgModule({

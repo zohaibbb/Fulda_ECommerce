@@ -41,6 +41,22 @@ jQuery(document).ready(function($) {
         });
     });
 
+    $('#password, #confirm_password').on('keyup', function () {
+        if ($('#password').val() == $('#confirm_password').val()) {
+           //alert('if')
+            //$('#JQVbtn').prop('disabled', true);
+            $('#JQVbtn').show();
+            
+          $('#message').html('Matching').css('color', 'green');
+        } else 
+        {
+          $('#message').html('Not Matching').css('color', 'red');
+         // alert('else');
+          $('#JQVbtn').hide();
+        }
+            //$('#JQVbtn').prop('disabled', true);
+      });
+
     // Bestseller owl slider script
     $("#nav-bestseller .next").click(function() {
         $("#owl-bestseller").trigger('owl.next');
