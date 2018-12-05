@@ -39,6 +39,7 @@ exports.list = async (req, res) => {
 
 /*Retrieves product by id*/
 exports.read = async (req, res) => {
+	console.log(Product);
   try{
 		let product = await Product.findById(req.params.id);
 		if (!product) 

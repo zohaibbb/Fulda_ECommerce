@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
-import bcrypt from 'bcrypt';
+
 
 
 const Schema = mongoose.Schema;
-const ProfileSchema = new Schema({  
+
+var ProfileSchema = new Schema({  
     firstname: {type: String,required: true },
     lastname: { type: String, required: true},
     mobilenumber:{ type: String, required: true},
@@ -13,10 +14,8 @@ const ProfileSchema = new Schema({
     rate:{ type: Number, default: 0 },
     userid: {type: Schema.Types.ObjectId,ref: 'User',required: true}
   }, {versionKey: false});
-  
 
 ProfileSchema.plugin(mongoosePaginate);
-
 
 module.exports = {
     Profile: mongoose.model('Profile',ProfileSchema)

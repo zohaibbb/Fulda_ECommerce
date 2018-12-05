@@ -6,13 +6,16 @@ import User from '../models/user';
 import Profile from '../models/profile';
 
 //const User = mongoose.model('user');
+
 //fetch userProfile by id
+
 exports.read = async (req, res) => {
+  console.log(Profile);
   try{
     let profile = await Profile.findById(req.params.id);
     console.log("User Profile is"+ profile);
 		if (!profile) 
-			return res.status(404).send(new Error('Not Found Error', ['User not found ']));
+			return res.status(404).send(new Error('Not Found Error', ['Profile not found ']));
 		else{
 			console.log(profile);
 			res.send(profile);
