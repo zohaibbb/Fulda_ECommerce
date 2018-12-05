@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
-import { WishlistComponent } from './wishlist/wishlist.component'
+import { WishlistComponent } from './wishlist/wishlist.component';
 import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
 import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
 
