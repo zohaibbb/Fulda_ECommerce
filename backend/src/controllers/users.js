@@ -2,27 +2,30 @@ import mongoose from 'mongoose';
 import response from '../helpers/response';
 import request from '../helpers/request';
 import pagination from '../helpers/pagination';
-
-import UserAndProfile from '../models/user';
-
-var User = UserAndProfile.User;
-var Profile = UserAndProfile.Profile;
+import User from '../models/user';
+import Profile from '../models/profile';
 
 //const User = mongoose.model('user');
-
-exports.list = async (req, res) => {
-  const user = await User.find();
-  response.send(user);
-  console.log(user);
+//fetch userProfile by id
+exports.read = async (req, res) => {
+  try{
+    let profile = await Profile.findById(req.params.id);
+    console.log("User Profile is"+ profile);
+		if (!profile) 
+			return res.status(404).send(new Error('Not Found Error', ['User not found ']));
+		else{
+			console.log(profile);
+			res.send(profile);
+		}
+	}catch(err){
+		 console.log("Error : While retrieving user");
+		 return res.status(500).send(new Error('Unknown server error', ['Unknown server error when trying to retrieve product']));
+		
+	}
 };
 
-exports.read = function (req, res) {
-  User.findById(req.params.id, function (err, user) {
-    if (err) return response.send(err);
-    if (!req.currentUser.canRead(user)) return response.sendForbidden(res);
-    res.json(user);
-  });
-};
+//which error code to return if the user is not logged in
+
 
 exports.create = function (req, res) {
 

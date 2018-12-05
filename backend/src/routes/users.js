@@ -7,8 +7,8 @@ routes.route('/:id')
   .put(users.update)
   .delete(users.delete);
 
-routes.route('/')
-  .get(users.list)
-  .post(users.create);
 
+  routes.route('/register')
+  .post(users.create);
+  
 module.exports = routes;
