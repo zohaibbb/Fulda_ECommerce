@@ -17,7 +17,4 @@ var ProfileSchema = new Schema({
 
 ProfileSchema.plugin(mongoosePaginate);
 
-module.exports = {
-    Profile: mongoose.model('Profile',ProfileSchema)
-  }
-  
+module.exports =  mongoose.model('Profile', ProfileSchema);
