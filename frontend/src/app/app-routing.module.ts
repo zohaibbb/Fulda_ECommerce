@@ -10,6 +10,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
 import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { OrdersHistoryComponent } from './orders-history/orders-history.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,8 +22,9 @@ const routes: Routes = [
   { path: 'product-create', component: ProductCreateComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: 'adminapproval', component: AdminapprovalComponent },
-  {path : 'forgot-password', component : ForgotPasswordComponent},
-  { path: 'profile', component: ProfileComponent }
+  { path : 'forgot-password', component : ForgotPasswordComponent},
+  { path: 'profile', component: ProfileComponent },
+  { path: 'history', component: OrdersHistoryComponent }
 ];
 
 @NgModule({
