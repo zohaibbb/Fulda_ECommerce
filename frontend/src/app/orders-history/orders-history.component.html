@@ -1,0 +1,92 @@
+<app-header></app-header>
+<section>
+  <div class="second-page-container">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-9">
+
+          <div class="header-for-light">
+            <h1 class="wow fadeInRight animated" data-wow-duration="1s">My Sales</h1>
+
+          </div>
+          <div class="block-products-modes color-scheme-2">
+            <div class="row">
+              <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="product-view-mode">
+                  <a href=""><i class="fa fa-th-large"></i></a>
+                  <a href="" class="active"><i class="fa fa-th-list"></i></a>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                <div class="row">
+                  <div class="col-md-3 col-md-offset-1">
+                    <label class="pull-right">Sort by</label>
+                  </div>
+                  <div class="col-md-5">
+                    <select name="sort-type" class="form-control">
+                      <option value="position:asc">--</option>
+                      <option value="price:asc" selected="selected">Price: Lowest first</option>
+                      <option value="price:desc">Price: Highest first</option>
+                      <option value="name:asc">Product Name: A to Z</option>
+                      <option value="name:desc">Product Name: Z to A</option>
+                      <option value="quantity:desc">In stock</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <select name="products-per-page" class="form-control">
+                      <option value="10" selected="selected">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                      <option value="100">100</option>
+                      <option value="all">All</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 *ngIf="!articles?.length">No Sales yet</h1>
+          <article *ngFor="let article of articles" class="product list">
+            <div class="row">
+              <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                <figure class="figure-hover-overlay text-center">
+                  <a (click)="productDetails(article._id)" class="figure-href"></a>
+                  <div class="product-new">{{article.type}}</div>
+                  <div class="product-sale" *ngIf="article.discount">{{article.discount}} <br> off</div>
+                  <a (click)="productDetails(article._id)" class="product-compare"><i class="fa fa-random"></i></a>
+                  <a (click)="productDetails(article._id)" class="product-wishlist"><i class="fa fa-heart-o"></i></a>
+                  <img [src]="article.image_path" class="img-overlay img-responsive" alt="">
+                  <img [src]="article.image_path" class="img-responsive" alt="">
+                </figure>
+              </div>
+
+              <div class="col-xs-12 col-sm-8 col-md-8">
+                <div class="product-caption">
+                  <div class="block-name">
+                    <a (click)="productDetails(article._id)" class="product-name">{{article.name}}</a>
+                    <p class="product-price"><span>{{article.price.original}}</span> {{article.price.discounted}}</p>
+                  </div>
+
+                  <div class="product-rating">
+                    <div class="stars">
+                      <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span
+                        class="star"></span>
+                    </div>
+                    <a href="" class="review">{{article.reviews}} Reviews</a>
+                  </div>
+                  <p class="description">{{article.description}}</p>
+                  <div class="product-cart">
+                    <a href="#"><i class="fa fa-shopping-cart"></i> Add to wishlist</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!-- <app-footer></app-footer> -->

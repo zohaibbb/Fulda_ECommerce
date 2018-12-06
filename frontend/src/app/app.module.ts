@@ -17,6 +17,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
 import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { OrdersHistoryComponent } from './orders-history/orders-history.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProfileComponent } from './profile/profile.component';
     WishlistComponent,
     AdminapprovalComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    OrdersHistoryComponent
   ],
   imports: [
     BrowserModule,
