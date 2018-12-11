@@ -8,13 +8,19 @@ routes.route('/get-categories')
 
 routes.route('/')
 	.get(product.list)
-  .put(product.update)
-  .delete(product.delete);
+  .put(product.update);
   
 routes.route('/add-product')
 	.post(product.create);
 
+routes.route('/add-image')
+	.post(product.addImage);
+
+routes.route('/product-status')
+	.post(product.status);
+
 routes.route('/:id')
-	.get(product.read);
+	.get(product.read)
+	.delete(product.delete);
 	
 module.exports = routes;

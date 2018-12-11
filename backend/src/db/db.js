@@ -2,7 +2,8 @@ import Mongoose from 'mongoose';
 import config from 'config';
 
 Mongoose.connect(config.database.url, config.database.properties);
-
+Mongoose.set('debug', true);
+Mongoose.Promise = require('bluebird');
 const db = Mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error.'));
 db.once('open', function callback() {

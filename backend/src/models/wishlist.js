@@ -8,6 +8,8 @@ var wishListSchema = new Schema({
   seller_id: String,
   product_id:String,
   order_id:String,
+	order_staus: String,
+	order_date: Date,
  
 }, {versionKey: false});
 

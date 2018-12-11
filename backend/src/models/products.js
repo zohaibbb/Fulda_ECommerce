@@ -9,9 +9,19 @@ var productSchema = new Schema({
   created_at:{type:Date,default:Date.now},
   description:String,
   condition:String,
-  approvalStatus: Boolean,
+  approved: {
+    type: Boolean,
+    default: false
+  },
+  deleted: {
+    type: Boolean,
+    default: false
+  },
   price: Number,
-  imagePath:String,
+  image_path: {
+    type: String,
+    default: ''
+  },
   category_id:String
 }, {versionKey: false});
 

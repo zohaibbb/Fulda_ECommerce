@@ -5,7 +5,7 @@ import products from './products';
 import wishlist from './wishlist';
 import response from '../helpers/response';
 const routes  = express.Router();
-routes.use(response.setHeadersForCORS);
+// routes.use(response.setHeadersForCORS);
 
 routes.use('/api/users', users);
 routes.use('/api/products', products);
