@@ -74,7 +74,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Price:</label>
                   <div class="col-sm-9">
-                    <input type="number" formControlName="price" name="price" id="price" class="form-control" id="price">
+                    <input type="number" formControlName="price" name="price" id="price" min="0" class="form-control" id="price">
                     <div *ngIf="price.touched && price.invalid">
                       <div *ngIf="price.errors?.required">Price is required</div>
                     </div>
@@ -96,6 +96,7 @@
                       [disabled] = "form.invalid"
                       (click)="post()" 
                       class="btn-default-1"
+                      [ngStyle]="{'cursor': form.invalid ? 'not-allowed' : 'pointer'}"
                       style="width:100%">
                         Post Product
                     </button>

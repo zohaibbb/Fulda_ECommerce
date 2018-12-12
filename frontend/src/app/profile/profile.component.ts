@@ -29,20 +29,17 @@ export class ProfileComponent implements OnInit {
         username: ['', [Validators.required]],
         email: ['', [Validators.email]],
         mobile_number: ['', []],
-        address: ['', [Validators.required]],
-        rate: ['', [Validators.required]]
+        address: ['', [Validators.required]]
       });
       this.form.get('role').disable();
       this.form.get('username').disable();
       this.form.get('email').disable();
-      this.form.get('rate').disable();
     }
 
   get role() { return this.form.get('role'); }
   get name() { return this.form.get('name'); }
   get email() { return this.form.get('email'); }
   get username() { return this.form.get('username'); }
-  get rate() { return this.form.get('rate'); }
   get address() { return this.form.get('address'); }
   get mobile_number() { return this.form.get('mobile_number'); }
 
@@ -68,7 +65,6 @@ export class ProfileComponent implements OnInit {
           email: result['user']['email'],
           name: result['user']['profile']['name'],
           address: result['user']['profile']['address'],
-          rate: result['user']['profile']['rate'],
           mobile_number: result['user']['profile']['mobile_number'],
         });
       });

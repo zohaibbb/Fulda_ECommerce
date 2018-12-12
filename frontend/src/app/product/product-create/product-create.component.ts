@@ -46,10 +46,11 @@ export class ProductCreateComponent implements OnInit {
     this.signingService.postProduct(this.form.value)
       .subscribe(result => {
         if (result['status']) {
+          console.log('RESULT ::::', result);
           this.product_id = result['product_id'];
           this.uploader.queue[0].upload();
         }
-      });
+      }, err => console.log('errrr :', err));
   }
 
   ngOnInit() {
@@ -76,9 +77,6 @@ export class ProductCreateComponent implements OnInit {
       this.form.reset();
       this.uploader.clearQueue();
       this.posted = result['message'];
-      setTimeout(() => {
-        this.posted = null;
-      }, 5000);
     }
 }
 
