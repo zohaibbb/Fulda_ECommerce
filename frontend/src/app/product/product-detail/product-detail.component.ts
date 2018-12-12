@@ -48,7 +48,7 @@ export class ProductDetailComponent implements OnInit {
             this.message = 'Product not found';
           }
         },
-        err => console.log('err =>', err));
+        err => this.message = err['error']['message']);
   }
   addToWishlist() {
     if (this.existInWishlist) {

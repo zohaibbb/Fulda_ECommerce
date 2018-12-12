@@ -80,7 +80,8 @@ exports.sales = async (req, res) => {
 
 /*Retrieves product by id*/
 exports.read = async (req, res) => {
-	let product = await Product.findById(req.params.id);
+	try {
+		let product = await Product.findById(req.params.id);
 	if (!product)
 		return res.status(400).send({status: false, message: "Product not found"});
 
@@ -97,6 +98,10 @@ exports.read = async (req, res) => {
 
 	product.category = category.name;
 	return res.status(200).send({status: true, message: 'Product found', product});
+	}
+	catch (err) {
+		return res.status(400).send({status: false, message: "Product not found"});
+	}
 };
 
 /*adds a product image*/

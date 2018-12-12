@@ -11,6 +11,7 @@ import {environment} from '../../environments/environment';
 })
 export class ProfileComponent implements OnInit {
   id;
+  message;
   user = {
     profile: {}
   };
@@ -75,6 +76,9 @@ export class ProfileComponent implements OnInit {
     params.profile_id = this.user['profile']['_id'];
     params.user_id = this.user['_id'];
     this.signingService.updateUser(params)
-      .subscribe(result  => console.log(result));
+      .subscribe(
+        result => this.message = result['message'],
+        err => this.message = err['error']['message']
+      );
   }
 }

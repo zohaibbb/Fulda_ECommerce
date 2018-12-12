@@ -16,7 +16,7 @@ export class ProductCreateComponent implements OnInit {
   form;
   categories;
   count = 0;
-  posted;
+  message;
   uploader: FileUploader;
   product_id;
   constructor(
@@ -46,7 +46,6 @@ export class ProductCreateComponent implements OnInit {
     this.signingService.postProduct(this.form.value)
       .subscribe(result => {
         if (result['status']) {
-          console.log('RESULT ::::', result);
           this.product_id = result['product_id'];
           this.uploader.queue[0].upload();
         }
@@ -76,14 +75,14 @@ export class ProductCreateComponent implements OnInit {
     if (result['status']) {
       this.form.reset();
       this.uploader.clearQueue();
-      this.posted = result['message'];
+      this.message = result['message'];
     }
 }
 
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     const error = JSON.parse(response);
     console.log('error =>', error);
-    this.posted = error.err.message;
+    this.message = error.err.message;
     this.uploader.clearQueue();
   }
 }

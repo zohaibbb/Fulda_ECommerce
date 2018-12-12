@@ -35,7 +35,7 @@
 							</div>
 						</div>
 					</div>
-					<h1 *ngIf="!articles?.length">No products</h1>
+					<h1 *ngIf="!articles?.length" class="message">No products found</h1>
 					<article *ngFor="let article of articles" class="product list">
 						<div class="row" (click)="productDetails(article._id)">
 							<div class="col-xs-12 col-sm-4 col-md-4 text-center" style="cursor:pointer!important">
@@ -68,4 +68,4 @@
 	</div>
 
 </section>
-<app-footer [ngClass]="{'fixed': articles?.length ? false : true }"></app-footer>
+<app-footer [ngClass]="{'fixed': articles?.length >= 2 ? false : true }"></app-footer>

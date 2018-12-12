@@ -20,7 +20,7 @@
 							<div class="col-md-3">
 								<div class="top-icons">
 									<div class="top-icon" *ngIf="user && user?.role !== 'seller'">
-										<a [routerLink]="['/wishlist']" title="Wishlist"><i class="fa fa-heart"></i></a>
+										<a style="cursor: pointer" (click)="wishlist()" title="Wishlist"><i class="fa fa-heart"></i></a>
 									</div>
 								</div>
 							</div>

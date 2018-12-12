@@ -40,6 +40,15 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  wishlist() {
+    const url = this.router.url;
+    if (url.search('wishlist') === -1) {
+      this.router.navigate(['wishlist']);
+    }
+    else {
+      this.router.navigate(['refresh', {route: 'wishlist'}]);
+    }
+  }
   profile() {
     const url = this.router.url;
     if (url.search('profile') === -1) {

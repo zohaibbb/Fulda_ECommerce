@@ -12,6 +12,8 @@ export class OrdersHistoryComponent implements OnInit {
   user;
   message;
   total = 0;
+  approved = 0;
+  sold = 0;
   constructor(
     private signingService: SigningService
   ) { }
@@ -30,6 +32,8 @@ export class OrdersHistoryComponent implements OnInit {
       if (result['body'] && result['body']['products'] && result['body']['products']['length'] > 0) {
         this.articles = result['body']['products'];
         this.articles.forEach(article => {
+          article.approved ? this.approved ++ : null;
+          article.sold ? this.sold ++ : null;
           article.sold ? this.total += article.price : null; 
           article.image_path = environment.apiUrl + '/' + article.image_path;
         });
