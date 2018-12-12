@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SigningService } from '../../services/signing.service';
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   articles;
+  keyword;
+  filter = 'recent';
   constructor(
     private title: Title,
     private signingService: SigningService,
@@ -21,17 +22,21 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Products List - Fulda Buy & Sell');
-    const searchKeyword = this.route.snapshot.params.name;
+    this.keyword = this.route.snapshot.params.name;
+    this.list();
+  }
 
-    this.signingService.searchProducts({name: searchKeyword})
-      .subscribe(results => {
-        if (Array.isArray(results.body) && results.body.length > 0) {
-          this.articles = results.body;
-          this.articles.forEach(article => {
-            article.image_path = environment.apiUrl + '/' + article.image_path;
-          });
-        }
-      }, err => console.log('err => ', err));
+  list() {
+    console.log(this.keyword);
+    this.signingService.searchProducts({name: this.keyword, filter: this.filter})
+    .subscribe(results => {
+      if (results['status'] && results['body'] && Array.isArray(results['body']['product'])) {
+        this.articles = results['body']['product'];
+        this.articles.forEach(article => {
+          article.image_path = environment.apiUrl + '/' + article.image_path;
+        });
+      }
+    }, err => console.log('err => ', err));
   }
 
   productDetails(id) {

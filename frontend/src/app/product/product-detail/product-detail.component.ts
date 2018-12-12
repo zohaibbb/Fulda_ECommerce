@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SigningService } from '../../services/signing.service';
 import { environment } from '../../../environments/environment';
 import _ from 'lodash';
@@ -11,30 +11,42 @@ import _ from 'lodash';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+  user;
   productId;
   article;
   params;
+  message;
   existInWishlist = false;
   constructor(
     private title: Title,
     private route: ActivatedRoute,
+    private router: Router,
     private signingService: SigningService
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
     this.title.setTitle('Product Details - Fulda Buy & Sell');
     this.productId = this.route.snapshot.params.id;
     this.signingService.getProduct(this.productId)
       .subscribe(
         result => {
-          this.article = result;
-          this.article.product_id = result['_id'];
-          this.article.image_path = environment.apiUrl + '/' + this.article.image_path;
-          this.article.buyer_id = '5bf17f5dd1524aa429cd67fc';  // will be dynamic after user login
-
-          this.params = _.pick(this.article, ['seller_id', 'buyer_id', 'product_id']);
-
-          this.exist();
+          console.log(result);
+          if (result['status']) {
+            this.article = result['product'];
+            this.article.product_id = result['product']['_id'];
+            this.article.image_path = environment.apiUrl + '/' + this.article.image_path;
+            if (this.user && this.user.role && this.user.role !== 'seller') {
+              this.article.buyer_id = this.user._id;
+              this.params = _.pick(this.article, ['seller_id', 'buyer_id', 'product_id']);
+              this.exist();
+            }
+          }
+          else {
+            this.message = 'Product not found';
+          }
         },
         err => console.log('err =>', err));
   }
@@ -63,17 +75,9 @@ export class ProductDetailComponent implements OnInit {
         err => console.log(err)
       );
   }
-  contactSeller(id){
-    alert('Clicked');
 
-    //this.signingService.contactSellerFromProductDetail(id)
-    //.subscribe(result=>{
-
-
-    //});
-
-
-
-
+  visitProfile() {
+    console.log(this.article);
+    this.router.navigate(['/profile', {id: this.article.seller_id}]);
   }
 }

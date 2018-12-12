@@ -7,10 +7,11 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
-import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
 import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OrdersHistoryComponent } from './orders-history/orders-history.component';
+import { RefreshComponent } from './refresh/refresh.component';
 
 
 const routes: Routes = [
@@ -21,10 +22,11 @@ const routes: Routes = [
   { path: 'product-detail', component: ProductDetailComponent },
   { path: 'product-create', component: ProductCreateComponent },
   { path: 'wishlist', component: WishlistComponent },
-  { path: 'adminapproval', component: AdminapprovalComponent },
-  { path : 'forgot-password', component : ForgotPasswordComponent},
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'admin-panel', component: AdminPanelComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'history', component: OrdersHistoryComponent }
+  { path: 'sales', component: OrdersHistoryComponent },
+  { path: 'refresh', component: RefreshComponent }
 ];
 
 @NgModule({

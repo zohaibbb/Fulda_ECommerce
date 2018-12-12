@@ -8,18 +8,22 @@ import { environment } from '../../environments/environment';
 export class SigningService {
 
   constructor(private http: HttpClient) {}
-  searchProducts(keyword?: any) {
+  searchProducts(params) {
     const url = environment.apiUrl + '/api/products';
-    const params = keyword.name ? keyword : {};
+    if (!params.name) {
+      delete params['name'];
+    }
+    return this.http.get(url, { params, observe: 'response' });
+  }
+  searchUsers(params) {
+    const url = environment.apiUrl + '/api/users';
+    if (!params.name) {
+      delete params['name'];
+    }
     return this.http.get(url, { params, observe: 'response' });
   }
   getProduct(id) {
     const url = environment.apiUrl + '/api/products/' + id;
-    return this.http.get(url);
-  }
-
-  getProdcuts() {
-    const url = environment.apiUrl + '/api/products';
     return this.http.get(url);
   }
   getCategories() {
@@ -47,19 +51,51 @@ export class SigningService {
     return this.http.post(url, product);
   }
   registerUser(user) {
-    const url = environment.apiUrl + '/api/users(post)';
+    const url = environment.apiUrl + '/api/users';
     return this.http.post(url, user);
   }
   loginUser(user) {
-    const url = environment.apiUrl + '/api/users/login(post)';
+    const url = environment.apiUrl + '/api/users/login';
     return this.http.post(url, user);
   }
-  changePassword(userDetail){
+  changePassword(user) {
     const url = environment.apiUrl + '/api/users/change-password';
-    return this.http.post(url,userDetail);
+    return this.http.post(url, user);
   }
-  contactSellerFromProductDetail(id){
-    const url = environment.apiUrl + '/api/users/profile';
-    return this.http.post(url,id);
+  changeProductStatus(product) {
+    const url = environment.apiUrl + '/api/products/product-status';
+    return this.http.post(url, product);
+  }
+  changeUserStatus(user) {
+    const url = environment.apiUrl + '/api/users/user-status';
+    return this.http.post(url, user);
+  }
+  getUser(id) {
+    const url = environment.apiUrl + '/api/users/' + id;
+    return this.http.get(url);
+  }
+  updateUser(user) {
+    const url = environment.apiUrl + '/api/users/' + user._id;
+    return this.http.put(url, user);
+  }
+  deleteProduct(id) {
+    const url = environment.apiUrl + '/api/products/' + id;
+    return this.http.delete(url);
+  }
+  deleteUser(id) {
+    const url = environment.apiUrl + '/api/users/' + id;
+    return this.http.delete(url);
+  }
+  checkout(order) {
+    const url = environment.apiUrl + '/api/wishlist/checkout';
+    return this.http.post(url, order);
+  }
+  sales(params) {
+    const url = environment.apiUrl + '/api/products/sales';
+    return this.http.get(url, { params, observe: 'response' });
+  }
+  latestProducts() {
+    const url = environment.apiUrl + '/api/products/latest';
+    return this.http.get(url);
   }
 }

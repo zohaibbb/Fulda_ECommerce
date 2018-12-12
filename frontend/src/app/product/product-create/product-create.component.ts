@@ -2,34 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SigningService } from '../../services/signing.service';
-
-// import { AddProductService } from '../../services/add-product.service';
-// import {GetAllCategoriesService} from '../../services/get-all-categories.service';
+import { FileUploader, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.scss']
 })
+
 export class ProductCreateComponent implements OnInit {
+  user;
   form;
   categories;
   count = 0;
-  posted = false;
+  posted;
+  uploader: FileUploader;
+  product_id;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private signingService: SigningService
-    ) {
-      this.form = fb.group({
-        name: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        condition: ['', [Validators.required]],
-        price: ['', [Validators.required]],
-        category_id: ['', [Validators.required]]
-      });
-    }
+  ) {
+    this.form = fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      condition: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      category_id: ['', [Validators.required]]
+    });
+  }
 
   get name() { return this.form.get('name'); }
   get description() { return this.form.get('description'); }
@@ -38,68 +41,51 @@ export class ProductCreateComponent implements OnInit {
   get category_id() { return this.form.get('category_id'); }
 
   post() {
-   
-    console.log(this.form);
-    this.form.seller_id = 1; // will be made dynamic in future
+    const params = this.form.value;
+    params.seller_id = this.user._id;
     this.signingService.postProduct(this.form.value)
-      .subscribe(
-        result => {
-          console.log(result);
-          this.form.reset();
-          this.posted = true;
-          setTimeout(() => {
-            this.posted = false;
-          }, 5000);
-        },
-        err => console.log(err)
-      );
+      .subscribe(result => {
+        if (result['status']) {
+          this.product_id = result['product_id'];
+          this.uploader.queue[0].upload();
+        }
+      });
   }
-  selectedFile = [];
+
   ngOnInit() {
-    this.signingService.getCategories()
-      .subscribe(categories => this.categories = categories);
-    // this.Categories=this.getallcategories.getAllCategories();
-  }
-
-  
-  onFileSelected(event) {
-    for (let entry of event.target.files) {
-
-      this.selectedFile[this.count] = <File>entry;
-
-      console.log(this.selectedFile[this.count]);
-      this.count = this.count + 1;
-      //console.log(entry);
-
-      const fd = new FormData();
-      fd.append('image', this.selectedFile[0], this.selectedFile[0].name);
-
-      console.log(fd);
-
-      //console.log(entry); // 1, "string", false
+    if (localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user'));
     }
+    this.uploader = new FileUploader({ url: `${environment.apiUrl}/api/products/add-image` });
+
+    this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
+      form.append('product_id', this.product_id);
+    };
+
+    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
 
 
-    // this.selectedFile = event.target.files[0];
-    // console.log(this.selectedFile);
-    // this.selectedFile = event.target.files[1]
-
-    // console.log(this.selectedFile);
+    this.signingService.getCategories()
+      .subscribe(result => this.categories = result['categories']);
   }
-  // addnewProduct(form: NgForm) {
 
-    // console.log(JSON.stringify(form.value));
-    //alert(JSON.stringify(form.value));
-    //alert(form.value);
+  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const result = JSON.parse(response); // success server response
+    if (result['status']) {
+      this.form.reset();
+      this.uploader.clearQueue();
+      this.posted = result['message'];
+      setTimeout(() => {
+        this.posted = null;
+      }, 5000);
+    }
+}
 
-
-    // this.addproductservice.addProduct()
-    //   .subscribe(res => {
-    //     alert('Successfully added to database and wait for the approval')
-    //   },
-    //     err => console.log('err =>', err));
-
-  // }
-
-
+  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    const error = JSON.parse(response);
+    console.log('error =>', error);
+    this.posted = error.err.message;
+    this.uploader.clearQueue();
+  }
 }

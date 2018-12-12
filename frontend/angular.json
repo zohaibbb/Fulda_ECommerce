@@ -46,12 +46,7 @@
               "src/assets/js/vendor/jquery.themepunch.plugins.min.js",
               "src/assets/js/vendor/jquery.themepunch.revolution.min.js",
               "src/assets/js/vendor/jquery.scrollTo-1.4.2-min.js",
-              "src/assets/js/main.js",
-              "src/assets/js/jquery-1.10.2.js",
-              "src/assets/js/bootstrap.min.js",
-              "src/assets/js/bootstrap-checkbox-radio-switch.js",
-              "src/assets/js/light-bootstrap-dashboard.js",
-             "src/assets/js/demo.js"
+              "src/assets/js/main.js"
             ]
           },
           "configurations": {

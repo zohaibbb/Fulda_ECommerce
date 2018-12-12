@@ -10,22 +10,53 @@ import _ from 'lodash';
 })
 export class WishlistComponent implements OnInit {
   articles;
+  orders;
   total = 0;
+  user;
+  message;
   constructor(
     private signingService: SigningService
   ) { }
 
   ngOnInit() {
-    this.list();
+    if (localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.list();
+    }
+  }
+
+  checkout() {
+    const order = {
+      buyer_id: this.user._id,
+      total: this.total,
+      wishlist: [],
+      products: []
+    };
+    this.articles.forEach(article => {
+      order.products.push(article.product_id);
+      order.wishlist.push(article._id);
+    });
+
+    this.signingService.checkout(order)
+      .subscribe(result => {
+        console.log(result);
+          this.message = result['message'];
+          this.list();
+          setTimeout(() =>  {
+            this.message = null;
+          }, 3000);
+      }, 
+      err => console.log(err));
   }
 
   list() {
-    this.signingService.getWishlist('5bf17f5dd1524aa429cd67fc') // buyer_id .. will be dynamic after login
+    this.signingService.getWishlist(this.user._id)
     .subscribe(
       result => {
-        this.articles = result;
+        this.articles = result['wishlist'];
+        this.orders = result['orders'];
+        console.log(this.orders);
         this.articles.forEach(article => {
-          console.log(article);
           this.total += article.product_details.price;
           article.product_details.image_path = environment.apiUrl + '/' + article.product_details.image_path;
         });

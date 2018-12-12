@@ -3,10 +3,12 @@
   <div class="second-page-container">
     <div class="block">
       <div class="container">
+        <h3 *ngIf="message">{{ message }}</h3>
         <div class="header-for-light">
           <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Wishlist</span></h1>
         </div>
-        <div class="row">
+        <h3 *ngIf="articles && articles['length'] < 1">No Products in Wishlist</h3>
+        <div class="row" *ngIf="articles && articles['length']">
           <div class="col-md-12">
             <table class="cart-table table wow fadeInLeft" data-wow-duration="1s">
               <thead>
@@ -22,103 +24,78 @@
               </thead>
               <tbody>
                 <tr *ngFor="let article of articles">
-                  <td class="card_product_image" data-th="Image"><a><img title="Product Name" alt="Product Name"
-                        [src]="article.product_details.image_path"></a></td>
+                  <td class="card_product_image" data-th="Image"><a><img title="Product Name" alt="Product Name" [src]="article.product_details.image_path"></a></td>
                   <td class="card_product_name" data-th="Product Name"><a>{{article.product_details.name}}</a><br>
                   </td>
                   <td class="card_product_model" data-th="Model">
                     <p>{{article.product_details.description}}</p>
                   </td>
                   <td class="card_product_quantity" data-th="Quantity">
-                      {{article.product_details.condition}}
+                    {{article.product_details.condition}}
                   </td>
                   <td class="card_product_price" data-th="Unit Price">{{article.product_details.price}}</td>
                   <!-- <td class="card_product_total" data-th="Add to Cart"><input type="submit" value="Add to Cart" class="btn-default-1"></td> -->
 
-                  <td class="card_product_remove" data-th="Remove"><a  style="cursor: pointer" (click)="removeProduct(article)">Remove</a></td>
-                </tr> 
-                
+                  <td class="card_product_remove" data-th="Remove"><a style="cursor: pointer" (click)="removeProduct(article)">Remove</a></td>
+                </tr>
+
               </tbody>
             </table>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-            <div class="row">
-                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="block-form block-order-total box-border wow fadeInRight" data-wow-duration="1s">
-                        <h3><i class="fa fa-dollar"></i> Total</h3>
-                        <hr>
-                        <ul class="list-unstyled">
-                            <li>Sub Total: <strong>€ {{ total }}</strong></li>
-                            <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->
-                            <!-- <li>VAT: <strong>€ 10.00</strong></li> -->
-                            <li><hr></li>
-                            <li><b>Total:</b> <strong>€ {{ total }}</strong></li>                                    
-                        </ul>
-                        <input type="submit"  value="Contuine Shoping"  class="btn-default-1">
-                        <a href="#"  class="btn-default-1">Checkout</a>
-                    </div>
-                </article>
-            </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" *ngIf="articles && articles['length']">
+          <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="block-form block-order-total box-border wow fadeInRight" data-wow-duration="1s">
+                <h3><i class="fa fa-dollar"></i> Total</h3>
+                <hr>
+                <ul class="list-unstyled">
+                  <li>Sub Total: <strong>€ {{ total }}</strong></li>
+                  <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->
+                  <!-- <li>VAT: <strong>€ 10.00</strong></li> -->
+                  <li>
+                    <hr>
+                  </li>
+                  <li><b>Total:</b> <strong>€ {{ total }}</strong></li>
+                </ul>
+                <button style="cursor: pointer" [disabled]="articles && articles['length'] == 0" (click)="checkout()"
+                  class="btn-default-1">Checkout</button>
+              </div>
+            </article>
+          </div>
         </div>
-
+      </div>
+      <br><br><br><br><br><br>
+      <div class="container">
+        <div class="header-for-light">
+          <h1 class="wow fadeInRight animated" data-wow-duration="1s">My <span>Orders</span></h1>
+        </div>
+        <h3 *ngIf="orders && orders['length'] < 1">No Orders</h3>
+        <div class="row">
+          <div *ngFor="let order of orders; let i = index" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="row">
+              <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="block-form block-order-total box-border wow fadeInRight" data-wow-duration="1s">
+                  <h3><i class="fa fa-dollar"></i> Order {{i+1}}</h3>
+                  <hr>
+                  <ul class="list-unstyled">
+                    <li *ngFor="let product of order.products">{{product.name }}<strong>€ {{ product.price }}</strong></li>
+                    <!-- <li>Promotion Discound: <strong>€ 5.00</strong></li> -->
+                    <!-- <li>VAT: <strong>€ 10.00</strong></li> -->
+                    <li>
+                      <hr>
+                    </li>
+                    <li><b>Total:</b> <strong>€ {{ order.total }}</strong></li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="block color-scheme-white-90">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <article class="payment-service">
-            <a href="#"></a>
-            <div class="row">
-              <div class="col-md-4 text-center">
-                <i class="fa fa-thumbs-up"></i>
-              </div>
-              <div class="col-md-8">
-                <h3 class="color-active">Safe Payments</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="payment-service">
-            <a href="#"></a>
-            <div class="row">
-              <div class="col-md-4 text-center">
-                <i class="fa fa-truck"></i>
-              </div>
-              <div class="col-md-8">
-                <h3 class="color-active">Free shipping</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="payment-service">
-            <a href="#"></a>
-            <div class="row">
-              <div class="col-md-4 text-center">
-                <i class="fa fa-fax"></i>
-              </div>
-              <div class="col-md-8">
-                <h3 class="color-active">24/7 Support</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-
-
-    </div>
-  </div>
-</section>
 
 <app-footer></app-footer>

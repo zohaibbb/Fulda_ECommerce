@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FileUploadModule } from 'ng2-file-upload';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './signing/register/register.component';
@@ -14,10 +14,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
-import { AdminapprovalComponent } from './adminapproval/adminapproval.component';
 import { ForgotPasswordComponent } from './signing/forgot-password/forgot-password.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OrdersHistoryComponent } from './orders-history/orders-history.component';
+import { RefreshComponent } from './refresh/refresh.component';
+
 
 @NgModule({
   declarations: [
@@ -31,10 +33,11 @@ import { OrdersHistoryComponent } from './orders-history/orders-history.componen
     ProductDetailComponent,
     ProductCreateComponent,
     WishlistComponent,
-    AdminapprovalComponent,
     ForgotPasswordComponent,
+    AdminPanelComponent,
     ProfileComponent,
-    OrdersHistoryComponent
+    OrdersHistoryComponent,
+    RefreshComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { OrdersHistoryComponent } from './orders-history/orders-history.componen
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

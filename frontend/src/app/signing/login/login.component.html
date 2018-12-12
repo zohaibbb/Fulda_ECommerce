@@ -1,118 +1,56 @@
-
 <app-header></app-header>
- 
-<section>
-    <div class="second-page-container">
-        <div class="block">
-            <div class="container">
-                <div class="header-for-light">
-                    <h1 class="wow fadeInRight animated" data-wow-duration="1s"><span>Login</span> or <span>Register</span></h1>
-                </div>
-                <div class="row">
-                    <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="block-form box-border wow fadeInLeft animated" data-wow-duration="1s">
-                            <h3><i class="fa fa-unlock"></i>Login</h3>
-                            <p>Please login using your existing account</p>
-                            <form [formGroup]="form" method="post">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" formControlName="username" placeholder="Username">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" formControlName="password" placeholder="Password">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <hr>
-                                        <input type="submit"  value="Login" (click)="login()" class="btn-default-1">
-                                        <input type="reset" value="Reset password" class="btn-default-1">
-                                    </div>
-                                </div>                                    
-                            </form>
-                        </div>
-                    </article>
-                    <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="block-form box-border wow fadeInRight animated" data-wow-duration="1s">
-                            <h3><i class="fa fa-pencil"></i>Create new account</h3>
-                            <p>Registration allows you to avoid filling in billing and shipping forms every time you checkout on this website.</p>
-                            <hr>
-                            <a [routerLink]="['/register']" class="btn-default-1">Register</a>
-                        </div>
-                        <div class="block-form box-border wow fadeInRight animated" data-wow-duration="1s">
-                            <h3><i class="fa fa-bookmark-o"></i>Checkout as Guest</h3>
-                            <p>Checkout as a guest instead!</p>
-                            <hr>
-                            <a href="#" class="btn-default-1">As Guest</a>
-                        </div>
-
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div> 
-</section>
-
-
-
-
 
 
 <section>
-    <div class="block color-scheme-white-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <article class="payment-service">
-                        <a href="#"></a>
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <i class="fa fa-thumbs-up"></i>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="color-active">Contact Seller Safely</h3>
-                                <p>Your Privacy and safety is our main concern</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="payment-service">
-                        <a href="#"></a>
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <i class="fa fa-truck"></i>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="color-active">Sell Products You want</h3>
-                                <p>Now its easy to sell your items from home</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-4">
-                    <article class="payment-service">
-                        <a href="#"></a>
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <i class="fa fa-fax"></i>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="color-active">24/7 Support</h3>
-                                <p>Always Available to buy or sell</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
+	<div class="second-page-container">
+		<div class="block">
+			<div class="container">
+				<div class="header-for-light">
+					<h1 class="wow fadeInRight animated" data-wow-duration="1s">Login in your <span>Account</span></h1>
+				</div>
+				<h3>{{message}}</h3>
+				<div class="row">
+					<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="block-form box-border wow fadeInLeft animated" data-wow-duration="1s">
+							<h3><i class="fa fa-unlock"></i>Login</h3>
+							<p>Please login using your existing account</p>
+							<form [formGroup]="form">
+								<div class="row">
+									<div class="col-md-6">
+										<input type="text" class="form-control" id="username" formControlName="username" placeholder="username">
+                    <div *ngIf="username.touched && username.invalid">
+                      <div *ngIf="username.errors?.required">Username is required</div>
+                    </div>
+									</div>
+									<div class="col-md-6">
+                    <input type="password" class="form-control" id="password" formControlName="password" placeholder="password">
+                    <div *ngIf="password.touched && password.invalid">
+                      <div *ngIf="password.errors?.required">Password is required</div>
+                    </div>
+									</div>
+									<div class="col-md-12">
+										<hr>
+										<button type="submit" [disabled]="form.invalid" (click)="login()" class="btn-default-1">Login</button>
+										<input type="reset" value="Reset password" class="btn-default-1">
+									</div>
+								</div>
+							</form>
+						</div>
+					</article>
+					<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="block-form box-border wow fadeInRight animated" data-wow-duration="1s">
+							<h3><i class="fa fa-pencil"></i>Create new account</h3>
+							<p>Registration allows you to avoid filling in billing and shipping forms every time you
+								checkout on this website.</p>
+							<hr>
+							<a [routerLink]="['/register']" class="btn-default-1">Register</a>
+						</div>
 
-
-
-        </div>
-    </div>
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
-
-
-
-
-
 
 <app-footer></app-footer>

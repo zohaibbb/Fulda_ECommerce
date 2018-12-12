@@ -15,27 +15,18 @@ export class ForgotPasswordComponent implements OnInit {
   constructor( private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private signingService: SigningService) { 
+    private signingService: SigningService) {
       this.form = fb.group({
         email: ['', [Validators.required]],
-        npassword: ['', [Validators.required]],
-        cpassword: ['', [Validators.required]]
-       
+        password: ['', [Validators.required]]
       });
-
-
-
-
   }
   get email() { return this.form.get('email'); }
-  get npassword() { return this.form.get('npassword'); }
-  get cpassword() { return this.form.get('cpassword'); }
+  get password() { return this.form.get('password'); }
 
   ngOnInit() {
   }
   changePassword(){
-    //alert("i am clicked");
-    //console.log();
     console.log(this.form);
     this.signingService.changePassword(this.form.value)
     .subscribe(
@@ -49,10 +40,5 @@ export class ForgotPasswordComponent implements OnInit {
       },
       err => console.log(err)
     );
-
-    
-
-
   }
-
 }

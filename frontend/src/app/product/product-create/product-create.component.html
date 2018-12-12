@@ -7,13 +7,13 @@
         <div class="header-for-light col-md-12 row">
           <div class="col-md-4">
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <h1 class="wow fadeInRight animated" data-wow-duration="1s">Post your <span>Product</span></h1>
           </div>
           <div class="col-md-2">
           </div>
         </div>
-        <h3 *ngIf="posted">Product Posted Successfully!</h3>
+        <h3 *ngIf="posted" class="alert">{{posted}}</h3>
         <div class="row">
           <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="block-form box-border wow fadeInLeft animated" data-wow-duration="1s">
@@ -85,14 +85,20 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label">Images:</label>
                   <div class="col-sm-3">
-                    <input type="file" name="images" id="images" class="form-control" multiple accept="image/*" id="image"
-                      (change)="onFileSelected($event)">
+                    <input type="file" class="form-control" id="inputfile" class="inputfile" name="single" ng2FileSelect [uploader]="uploader" />
                   </div>
                 </div>
                 <hr>
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-9">
-                    <button style="width:100%;" type="submit" [disabled]="form.invalid" (click)="post()" class="btn-default-1">Post Product</button>
+                    <button 
+                      type="submit" 
+                      [disabled] = "form.invalid"
+                      (click)="post()" 
+                      class="btn-default-1"
+                      style="width:100%">
+                        Post Product
+                    </button>
                   </div>
                 </div>
               </form>
