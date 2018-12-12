@@ -28,12 +28,17 @@ exports.list = async (req, res) => {
 };
 
 exports.changePassword = async (req, res) => {
+  const userExist = await User.findOne({username: req.body.username});
+  console.log(userExist);
+  if (!userExist)
+    return res.status(400).send({status: false, message: 'This user doesnot exist'});
+
   const user = await User.update({ username: req.body.username }, { $set: { password: req.body.password }});
   console.log('change password  =>', user);
   if (!user) 
-    res.send({status: false, message: 'Something went wrong'});
+    return res.status(400).send({status: false, message: 'Password didnot changed, please try again'});
   
-  res.send({status: true, message: 'Password Changed Successful'});
+  return res.status(200).send({status: true, message: 'Password changed successfully'});
 }
 
 exports.login = async (req, res) => {
@@ -52,21 +57,25 @@ exports.login = async (req, res) => {
 }
 exports.create = async (req, res) => {
   console.log('req.body => ', req.body);
+  const existUsername = await User.findOne({username: req.body.username});
+  if (existUsername)
+    return res.status(400).send({status: false, message: 'Username already taken, please try again.'});
+
+  const existEmail = await User.findOne({email: req.body.email});
+  if (existEmail)
+      return res.status(400).send({status: false, message: 'Email already taken, please try again.'});
+        
   let params = req.body;
   const user = await User.create(req.body);
   if (!user) 
-    return res.status(404).send(new Error('Registration Unsuccessful'));
+    return res.status(400).send({status: false, message: 'Signup failed, please try again.'});
 
-  console.log('user => ', user);
-  console.log('params => ', params);
   params['user_id'] = _.pick(user, ['_id']);
   const profile = await Profile.create(req.body);
   if (!profile) 
-    return res.status(404).send(new Error('Registration Unsuccessful'));
+  return res.status(400).send({status: true, message: 'Signup failed, please try again.'});
 
-  console.log('profile => ', profile);
-
-  res.send({status: true, message: 'Signup Successful'});
+  return res.status(200).send({status: true, message: 'Signup successful'});
 };
 
 exports.read = async function(req, res) {

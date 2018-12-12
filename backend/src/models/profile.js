@@ -17,10 +17,6 @@ const profileSchema = new Schema({
   image_path: {
     type: String
   },
-  rate: {
-    type: String,
-    enum: [1,2,3,4,5]
-  },
   user_id: {
     type: Schema.Types.ObjectId,
     ref: 'User',

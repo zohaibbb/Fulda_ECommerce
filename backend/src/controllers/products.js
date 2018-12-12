@@ -6,7 +6,7 @@ import multer from 'multer';
 import path from 'path';
 
 const storage = multer.diskStorage({ //multers disk storage settings
-	destination: (req, file, cb) => { cb(null, './src/public/assets/img/prod-img/') },
+	destination: (req, file, cb) => { cb(null, path.join(__dirname, '../public/assets/img/prod-img/'))},
 	filename: (req, file, cb) => { cb(null, req.body.product_id) },
 	onFileUploadComplete: (file) => { done = true }
 });
@@ -68,7 +68,7 @@ exports.list = async (req, res) => {
 };
 
 exports.latest = async (req, res) => {
-	const products = await Product.find().sort({created_at: -1}).limit(4);
+	const products = await Product.find({approved: true, sold: false, deleted: false}).sort({created_at: -1}).limit(4);
 	return res.status(200).send({status: true, message: '4 Products found', products});
 }
 
@@ -101,17 +101,24 @@ exports.read = async (req, res) => {
 
 /*adds a product image*/
 exports.addImage = async (req, res) => {
-	upload(req, res, async (err) => {
-		if (err) {
-			await Product.findByIdAndRemove(req.body.product_id);
-			return res.status(400).send({status: false, err: err});
-		}
-		await Product.findByIdAndUpdate(
-			req.body.product_id, {
-				$set: { image_path: `assets/img/prod-img/${req.body.product_id}`}
-			});
-		return res.status(200).send({ status: true, message: 'Product added successfully' });
-	});
+	try {
+		upload(req, res, async (err) => {
+			if (err) {
+				console.log('try error :', err);
+				await Product.findByIdAndRemove(req.body.product_id);
+				return res.status(400).send({status: false, err: err});
+			}
+			await Product.findByIdAndUpdate(
+				req.body.product_id, {
+					$set: { image_path: `assets/img/prod-img/${req.body.product_id}`}
+				});
+			return res.status(200).send({ status: true, message: 'Product added successfully' });
+		});	
+	}
+	catch (err) {
+		console.log('errr :', err);
+		return res.status(400).send({status: false, err: err});
+	}
 }
 
 /*adds a new product*/
