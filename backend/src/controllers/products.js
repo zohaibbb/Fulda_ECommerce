@@ -1,5 +1,7 @@
 import Product from '../models/products';
 import ProductCategories from '../models/product_categories';
+import Profile from '../models/profile';
+import Wishlist from '../models/wishlist';
 import multer from 'multer';
 import path from 'path';
 
@@ -24,50 +26,77 @@ const upload = multer({
 
 exports.categories = async (req, res) => {
 	const categories = await ProductCategories.find();
-	console.log(categories);
-	res.send(categories);
+	if (!categories) {
+		return res.status(400).send({status: false, message: 'Categories not found'});
+	}
+	return res.status(200).send({status: true, message: 'Categories found', categories});
 }
 
 /*Retrieves the list of products*/
 exports.list = async (req, res) => {
 	let product;
 	const search = req.query;
-	const where = { deleted: false };
+	const filter = req.query.filter;
+	const where = { deleted: false, sold: false };
+	const sort = {};
+	if (filter == 'recent') {
+		sort.created_at = -1;
+	}
+	if (filter == 'price_lowest') {
+		sort.price = 1;
+	}
+	if (filter == 'price_highest') {
+		sort.price = -1;
+	}
+	if (filter == 'name_asc') {
+		sort.name = 1;
+	}
+	if (filter == 'name_desc') {
+		sort.name = -1;
+	}
 	if (search && !search.admin) {
 		where.approved = true;
 	}
 	if (search.hasOwnProperty('name')) {
 		where['$text'] = { $search: search.name };
 	}
+	product = await Product.find(where).sort(sort);
+	if (!product)
+		return res.status(400).send({status: false, message: 'Products not found'});
 
-	try {
-		product = await Product.find(where);
-		if (!product)
-			return res.status(404).send(new Error('Not Found Error', ['Product not found ']));
-
-		res.send(product);
-		
-	} catch (err) {
-		console.log("Error : While retrieving product");
-		return res.status(500).send(new Error('Unknown server error', ['Unknown server error when trying to retrieve product']));
-	}
+	return res.status(200).send({status: true, message: 'Products found', product});
 };
+
+exports.latest = async (req, res) => {
+	const products = await Product.find().sort({created_at: -1}).limit(4);
+	return res.status(200).send({status: true, message: '4 Products found', products});
+}
+
+exports.sales = async (req, res) => {
+	console.log(req.query);
+	const products = await Product.find({seller_id: req.query.id});
+	return res.status(200).send({status: true, message: 'Products found', products});
+}
 
 /*Retrieves product by id*/
 exports.read = async (req, res) => {
-	try {
-		let product = await Product.findById(req.params.id);
-		if (!product)
-			return res.status(500).send({status: false, message: "Product not found"});
-		else {
-			console.log(product);
-			res.send(product);
-		}
-	} catch (err) {
-		console.log("Error : While retrieving product");
-		return res.status(500).send({status: false, message: "Something went wrong"});
+	let product = await Product.findById(req.params.id);
+	if (!product)
+		return res.status(400).send({status: false, message: "Product not found"});
 
-	}
+	product = JSON.parse(JSON.stringify(product));
+	const seller = await Profile.findOne({user_id: product.seller_id});
+	if (!seller)
+	return res.status(400).send({status: false, message: "Product not found"});
+
+	product.seller = seller.name;
+
+	const category = await ProductCategories.findById(product.category_id);
+	if (!category)
+	return res.status(400).send({status: false, message: "Product not found"});
+
+	product.category = category.name;
+	return res.status(200).send({status: true, message: 'Product found', product});
 };
 
 /*adds a product image*/
@@ -85,9 +114,9 @@ exports.addImage = async (req, res) => {
 	});
 }
 
-
 /*adds a new product*/
 exports.create = async (req, res) => {
+	console.log(req.body);
 	const product = await Product.create(req.body);
 	if (!product)
 		return res.status(400).send({status: false, message: 'Product not added, try again!'});
@@ -98,7 +127,6 @@ exports.create = async (req, res) => {
 		product_id: product._id
 	});
 }
-
 
 /*Approval of product by Admin*/
 exports.status = async (req, res) => {
@@ -116,13 +144,12 @@ exports.status = async (req, res) => {
 /*Removes product */
 exports.delete = async (req, res) => {
 	try {
-		const product = await Product.update({ '_id': req.params.id }, { $set: { 'deleted': true } });
-		if (!product) {
-			return res.status(500).send({status: false, message: "Unable to remove product"});
-		}
+		await Product.update({ _id: req.params.id, sold: false }, { $set: { deleted: true } });
+		await Wishlist.remove({product_id: req.params.id, order_id: { $exists: false }});
 		console.log('Product deleted');
 		res.send({status: true, message: 'Product removed successfully'});
 	} catch (err) {
+		console.log(err);
 		return res.status(500).send({status: false, message: "Something went wrong"});
 	}
 };

@@ -4,9 +4,11 @@ import mongoosePaginate from 'mongoose-paginate';
 const Schema = mongoose.Schema;
 
 var productSchema = new Schema({
-	seller_id:String,
   name:String,
-  created_at:{type:Date,default:Date.now},
+  created_at: {
+    type: Date, 
+    default: Date.now
+  },
   description:String,
   condition:String,
   approved: {
@@ -22,7 +24,16 @@ var productSchema = new Schema({
     type: String,
     default: ''
   },
-  category_id:String
+  sold: {
+    type: Boolean,
+    default: false
+  },
+  category_id:String,
+  seller_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
 }, {versionKey: false});
 
 productSchema.plugin(mongoosePaginate);

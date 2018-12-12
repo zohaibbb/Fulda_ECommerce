@@ -59,17 +59,24 @@ exports.list = async (req, res) => {
 
 /*Checkout items in wishlist*/
 exports.checkout = async (req, res) => {
-	console.log(req.body);
 	const order = await Order.create(req.body);
 	if (!order)
 		return res.status(400).send({status: false, message: 'Order not created, please try again'});
 
-	const products = await Wishlist.update(
-		{_id: { $in: req.body.products } },
+	await Wishlist.update(
+		{_id: { $in: req.body.wishlist } },
 		{ $set: { order_id: order._id } },
 		{ multi: true }
 	);
-	console.log('products : ', products);
+
+	await Product.update(
+		{_id: { $in: req.body.products } },
+		{ $set: { sold: true } },
+		{ multi: true }
+	)
+
+	const deletedList = await Wishlist.remove({_id: { $nin: req.body.wishlist }, order_id: null });
+	console.log('deletedList : ', deletedList);
 	return res.status(200).send({status: true, message: 'Order placed successfully'})
 };
 

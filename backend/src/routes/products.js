@@ -8,7 +8,13 @@ routes.route('/get-categories')
 
 routes.route('/')
 	.get(product.list)
-  .put(product.update);
+	.put(product.update);
+
+routes.route('/sales')
+	.get(product.sales)
+
+routes.route('/latest')
+	.get(product.latest)
   
 routes.route('/add-product')
 	.post(product.create);
