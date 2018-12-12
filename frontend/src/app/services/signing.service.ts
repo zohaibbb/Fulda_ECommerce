@@ -44,7 +44,7 @@ export class SigningService {
   }
   getWishlist(buyer_id) {
     const url = environment.apiUrl + '/api/wishlist/' + buyer_id;
-    return this.http.get(url)
+    return this.http.get(url);
   }
   removeProductFromWishlist(product) {
     const url = environment.apiUrl + '/api/wishlist/remove-product';

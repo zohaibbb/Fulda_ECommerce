@@ -6,7 +6,7 @@
 					<div id="container-fixed">
 						<div class="row">
 							<div class="col-md-3">
-								<a style="cursor:pointer" [routerLink]="['']" class="header-logo"> <img src="../../assets/img/logo.png" alt=""></a>
+								<a style="cursor:pointer" [routerLink]="['']" class="header-logo"> <img src="../../assets/img/logo.png" class="img-responsive" alt=""></a>
 							</div>
 							<div class="col-md-5 col-md-offset-1">
 								<div class="top-search-form pull-left">
@@ -17,7 +17,7 @@
 									</form>
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="top-icons">
 									<div class="top-icon" *ngIf="user && user?.role !== 'seller'">
 										<a [routerLink]="['/wishlist']" title="Wishlist"><i class="fa fa-heart"></i></a>
@@ -41,7 +41,7 @@
 						<div id="navbar-collapse-1" class="navbar-collapse collapse ">
 							<ul class="nav navbar-nav">
 								
-								<li><a [routerLink]="['/product-listing']">All Products</a></li>
+								<li><a style="cursor: pointer" (click)="allProducts()">All Products</a></li>
 								<li *ngIf="user && user.role != 'buyer'"><a [routerLink]="['/product-create']">Sell Product</a></li>
 								<li *ngIf="user && user.role != 'buyer'"><a [routerLink]="['/sales']">Sales</a></li>
 							</ul>

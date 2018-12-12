@@ -36,19 +36,18 @@ export class RegisterComponent implements OnInit {
   get password() { return this.form.get('password'); }
 
   register() {
-    console.log(this.form);
-
     this.signingService.registerUser(this.form.value)
       .subscribe(
         result => {
           console.log(result);
-          this.form.reset();
+          if (result['status']) {
+            this.form.reset();
+          }
           this.message = result['message'];
-          setTimeout(() => {
-            this.message = null;
-          }, 5000);
         },
-        err => console.log(err)
+        err => {
+          this.message = err['error']['message'];
+        }
       );
   }
 

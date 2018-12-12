@@ -50,6 +50,16 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  allProducts() {
+    const url = this.router.url;
+    if (url.search('product-listing') === -1) {
+      this.router.navigate(['product-listing']);
+    }
+    else {
+      this.router.navigate(['refresh', {route: 'product-listing'}]);
+    }
+  }
+
   searchProducts() {
     let params;
     if (!this.searchKeyword) {

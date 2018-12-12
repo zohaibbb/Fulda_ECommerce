@@ -14,8 +14,8 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<form>
-                                    <input type="text" [(ngModel)]="keyword" (keyup.enter)="list()" name="keyword" placeholder="Search ..." class="form-control">
-                                </form>
+									<input type="text" [(ngModel)]="keyword" (keyup.enter)="list()" name="keyword" placeholder="Search ..." class="form-control">
+								</form>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="row">
@@ -35,7 +35,7 @@
 							</div>
 						</div>
 					</div>
-					<h1 *ngIf="!articles?.length">No search results</h1>
+					<h1 *ngIf="!articles?.length">No products</h1>
 					<article *ngFor="let article of articles" class="product list">
 						<div class="row" (click)="productDetails(article._id)">
 							<div class="col-xs-12 col-sm-4 col-md-4 text-center" style="cursor:pointer!important">
@@ -43,8 +43,6 @@
 									<a (click)="productDetails(article._id)" class="figure-href"></a>
 									<div class="product-new">{{article.type}}</div>
 									<div class="product-sale" *ngIf="article.discount">{{article.discount}} <br> off</div>
-									<!-- <a (click)="productDetails(article._id)" class="product-compare"><i class="fa fa-random"></i></a>
-									<a (click)="productDetails(article._id)" class="product-wishlist"><i class="fa fa-heart-o"></i></a> -->
 									<img [src]="article.image_path" class="img-overlay img-responsive" alt="">
 									<img [src]="article.image_path" class="img-responsive" alt="">
 								</figure>
@@ -56,13 +54,6 @@
 										<a (click)="productDetails(article._id)" class="product-name">{{article.name}}</a>
 										<p class="product-price"><span>{{article.price.original}}</span> {{article.price.discounted}}</p>
 									</div>
-
-									<!-- <div class="product-rating">
-																			<div class="stars">
-																					<span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-																			</div>
-																			<a href="" class="review">{{article.reviews}} Reviews</a>
-																	</div> -->
 									<p class="description">{{article.description}}</p>
 									<p class="price">{{article.price}} €</p>
 								</div>
@@ -77,4 +68,4 @@
 	</div>
 
 </section>
-<app-footer style="z-index: 1;"></app-footer>
+<app-footer [ngClass]="{'fixed': articles?.length ? false : true }"></app-footer>

@@ -31,7 +31,7 @@
 									<div class="col-md-12">
 										<hr>
 										<button type="submit" [disabled]="form.invalid" (click)="login()" class="btn-default-1">Login</button>
-										<input type="reset" value="Reset password" class="btn-default-1">
+										<button type="button" [routerLink]="['/forgot-password']" class="btn-default-1">Reset Password</button>
 									</div>
 								</div>
 							</form>

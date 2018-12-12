@@ -82,19 +82,9 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> I'v read and agreed on <a href="#">Condations</a>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" [disabled]="form.invalid" (click)="register()" class="btn-default-1">Register</button>
+                    <button [ngStyle]="{'cursor': form.invalid ? 'not-allowed' : 'pointer'}"  type="submit" [disabled]="form.invalid" (click)="register()" class="btn-default-1">Register</button>
                   </div>
                 </div>
               </form>
