@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/CSC-648-SFSU/csc648-fa18-TeamFd03#readme",
   "dependencies": {
-    "bcrypt": "1.0.2",
+    "bcrypt": "5.0.0",
     "body-parser": "^1.17.2",
     "config": "^1.26.2",
     "cross-env": "^5.2.0",
